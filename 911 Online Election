@@ -1,0 +1,40 @@
+class TopVotedCandidate:
+
+    def __init__(self, persons: List[int], times: List[int]):
+        
+        self.leading = []
+        self.times = []
+        count = defaultdict(int)
+        maxx = 0
+        
+        for i,p in enumerate(persons):
+            
+            count[p] += 1
+            
+            if count[p] >= maxx:
+                maxx = count[p]
+                self.leading.append(p)
+                self.times.append(times[i])
+            
+    def binary_search(self, arr, ele):
+        
+        i = 0
+        j = len(arr)-1
+        
+        while i <= j:
+            
+            mid = i+(j-i)//2
+            if arr[mid] == ele:
+                return mid
+            elif arr[mid] > ele:
+                j = mid-1
+            else:
+                i = mid+1
+        
+        return i-1
+
+    def q(self, t: int) -> int:
+        
+        index = self.binary_search(self.times, t)
+        return self.leading[index]
+        
