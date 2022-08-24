@@ -1,0 +1,74 @@
+import sys
+class Solution:
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        
+        m = len(grid)
+        n = len(grid[0])
+        
+        def dfs(row, col1, col2):
+            
+            if col1 < 0 or col2 < 0 or col1 > n-1 or col2 > n-1: return -sys.maxsize
+            
+            if row == m-1:
+                if col1 == col2:
+                    return grid[row][col1]
+                else:
+                    return grid[row][col1] + grid[row][col2]
+                
+            maxi = 0
+            for new_col1 in range(-1, 2):
+                for new_col2 in range(-1, 2):
+                    
+                    if col1 == col2:
+                        maxi = max(maxi, grid[row][col1] + dfs(row+1, col1+new_col1, col2+new_col2))
+                    else:
+                        maxi = max(maxi, grid[row][col1] + grid[row][col2] + dfs(row+1, col1+new_col1, col2+new_col2))
+                        
+            return maxi
+            
+        return dfs(0, 0, n-1)
+        
+Solution 2.)
+============>>>>>
+
+import sys
+class Solution:
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        
+        m = len(grid)
+        n = len(grid[0])
+        
+        def dfs(row, col1, col2):
+            
+            if col1 < 0 or col2 < 0 or col1 > n-1 or col2 > n-1: return -sys.maxsize
+            
+            if dp[row][col1][col2] != -1:
+                return dp[row][col1][col2]
+            
+            if row == m-1:
+                if col1 == col2:
+                    return grid[row][col1]
+                else:
+                    return grid[row][col1] + grid[row][col2]
+                
+            maxi = 0
+            for new_col1 in range(-1, 2):
+                for new_col2 in range(-1, 2):
+                    
+                    if col1 == col2:
+                        maxi = max(maxi, grid[row][col1] + dfs(row+1, col1+new_col1, col2+new_col2))
+                    else:
+                        maxi = max(maxi, grid[row][col1] + grid[row][col2] + dfs(row+1, col1+new_col1, col2+new_col2))
+                        
+            dp[row][col1][col2] = maxi
+            return dp[row][col1][col2]
+            
+            
+        dp = [[[-1 for _ in range(n)] for _ in range(n)] for _ in range(m)]
+        return dfs(0, 0, n-1)
+
+
+
+
+
+
