@@ -1,0 +1,16 @@
+class Solution:
+    def reorderedPowerOf2(self, n: int) -> bool:
+        
+        
+        res = [int(x) for x in str(n)]
+        res.sort()
+        
+        for i in range(30):
+            temp = []
+            for x in str(1<<i):
+                temp.append(int(x))
+            if sorted(temp) == res:
+                return True
+            
+        return False
+            
