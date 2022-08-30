@@ -1,0 +1,25 @@
+import sys
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+        
+        
+        maxlen = currsum = start = 0
+        summ = sum(nums)
+        
+        if summ < x: return -1
+        if summ == x: return len(nums)
+        
+        k = summ-x
+        
+        for i in range(len(nums)):
+            
+            currsum += nums[i]
+            
+            while currsum > k:
+                currsum -= nums[start]
+                start += 1
+            
+            if currsum == k:
+                maxlen = max(maxlen, i-start+1)
+                
+        return len(nums)-maxlen if maxlen != 0 else -1
