@@ -1,6 +1,22 @@
 class Solution:
     def rob(self, root: Optional[TreeNode]) -> int:
         
+        def dfs(root, can_pass):
+            
+            if not root: return 0
+            rob = root.val + dfs(root.left, 0) + dfs(root.right, 0) if can_pass else -1
+            dont_rob = dfs(root.left, 1) + dfs(root.right, 1) 
+            return max(rob, dont_rob)
+        
+        if not root: return 0
+        return dfs(root, 1)
+        
+Optimised Version :
+===================>>>
+
+class Solution:
+    def rob(self, root: Optional[TreeNode]) -> int:
+        
         def dfs(root):
             
             if not root: return [0, 0]
