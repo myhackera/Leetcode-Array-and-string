@@ -1,0 +1,28 @@
+class Solution:
+    def removeKdigits(self, num: str, k: int) -> str:
+        
+        start = 0
+        top = -1
+        num = list(num)
+        n = len(num)
+        last = n-k
+        
+        if n <= k: return "0"
+        
+        for i in range(n):
+            
+            while top >= 0 and num[i] < num[top] and k > 0:
+                top -= 1
+                k -= 1
+            
+            top += 1
+            num[top] = num[i]
+        
+        while start <= top and num[start] == "0":
+            start += 1
+            
+        ans = ""
+        for i in range(start, last):
+            ans += num[i]
+            
+        return ans if ans != "" else "0"
