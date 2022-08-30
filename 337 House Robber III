@@ -1,0 +1,18 @@
+class Solution:
+    def rob(self, root: Optional[TreeNode]) -> int:
+        
+        def dfs(root):
+            
+            if not root: return [0, 0]
+            
+            left = dfs(root.left)
+            right = dfs(root.right)
+            
+            include = root.val + left[1] + right[1]
+            exclude = max(left[0], left[1]) + max(right[0], right[1])
+            
+            return [include, exclude]
+       
+    
+        include, exclude = dfs(root)
+        return max(include, exclude)
