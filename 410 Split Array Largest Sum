@@ -1,0 +1,30 @@
+class Solution:
+    def check(self, nums, ele, m):
+        
+        cnt = summ = 0
+        for i in range(len(nums)):
+            if nums[i] > ele:
+                return False
+            summ += nums[i]
+            if summ > ele:
+                cnt += 1
+                summ = nums[i]
+                
+        return cnt+1 <= m
+        
+    def splitArray(self, nums: List[int], m: int) -> int:
+        
+        low = max(nums)
+        high = sum(nums)
+        
+        while low <= high:
+            
+            mid = low + (high-low)//2
+            if self.check(nums, mid, m):
+                high = mid - 1
+            else:
+                low = mid + 1
+                
+        return low
+        
+        
