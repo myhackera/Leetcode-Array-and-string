@@ -1,0 +1,22 @@
+from collections import defaultdict
+class Solution:
+    def fourSumCount(self, nums1: List[int], nums2: List[int], nums3: List[int], nums4: List[int]) -> int:
+        
+        cnt = 0
+        d = defaultdict(int)
+        
+        for i in range(len(nums1)):
+            for j in range(len(nums2)):
+                
+                summ = nums1[i]+nums2[j]
+                d[summ] += 1
+                    
+        for k in range(len(nums3)):
+            for l in range(len(nums4)):
+                
+                summ = nums3[k] + nums4[l]
+                check = (-1)*summ
+                if check in d:
+                    cnt += d[check]
+                
+        return cnt
