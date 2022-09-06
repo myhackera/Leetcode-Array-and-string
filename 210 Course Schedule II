@@ -1,0 +1,32 @@
+from collections import defaultdict
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        
+        d = defaultdict(list)
+        for pre in prerequisites:
+            d[pre[1]].append(pre[0])
+
+        indegree = [0]*numCourses
+        for k,v in d.items():
+            for val in v:
+                indegree[val] += 1
+        
+        q = []
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                q.append(i)
+                
+        cnt = 0
+        toporder = []
+        
+        while q:
+            temp = q.pop(0)
+           
+            for nei in d[temp]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+            toporder.append(temp)
+            cnt += 1
+        
+        return toporder if cnt == numCourses else []
