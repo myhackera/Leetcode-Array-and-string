@@ -1,0 +1,25 @@
+
+class Solution:
+    def decodedString(self, s):
+        
+        st = []
+        
+        for i in range(len(s)):
+            
+            if s[i] != ']':
+                st.append(s[i])
+            else:
+                temp = ""
+                while st[-1] != "[":
+                    temp = st.pop() + temp
+                st.pop()
+                    
+                num = ""
+                while st and st[-1].isdigit():
+                    num = st.pop() + num
+                
+                st.append(int(num)*temp)
+                
+        return "".join(st)
+                
+                
