@@ -1,0 +1,39 @@
+import sys
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        
+        O(n^3) Solution 
+        ===============>>>>
+        # for i in range(len(nums)-2):
+        #     for j in range(i+1, len(nums)-1):
+        #         for k in range(j+1, len(nums)):
+        #             if nums[i] < nums[k] and nums[j] > nums[k] and nums[j] > nums[i]:
+        #                 return True
+        # return False
+        
+        '''Traverse the array from N-1 to 0 and check for every ith element 
+        if the greatest element on the right which is smaller than ith element is greater than the smallest element on the left of i 
+        then true else false. '''
+        
+        O(n) Solution 
+        ==============>>>>
+        smallest_on_left = []
+        min = nums[0]
+        
+        for i in range(len(nums)):
+            if min >= nums[i]:
+                min = nums[i]
+                smallest_on_left.append(-10000000000)
+            else:
+                smallest_on_left.append(min)
+        
+        st = [] # greatest on right
+        for i in range(len(nums)-1, 0, -1):
+            
+            while len(st) != 0 and st[-1] <= smallest_on_left[i]:
+                st.pop()
+            if len(st) != 0 and smallest_on_left[i] != -10000000000 and st[-1] < nums[i]:
+                return True
+            st.append(nums[i])
+            
+        return False
