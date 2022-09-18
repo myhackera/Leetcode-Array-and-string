@@ -1,28 +1,16 @@
 class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
         
-        start = 0
-        top = -1
-        num = list(num)
-        n = len(num)
-        last = n-k
+        ''' Just remove greater element from left >> for more move to Needtcode '''
+        st = []
         
-        if n <= k: return "0"
-        
-        for i in range(n):
-            
-            while top >= 0 and num[i] < num[top] and k > 0:
-                top -= 1
+        for c in num:
+            while k > 0 and st and st[-1] > c:
                 k -= 1
-            
-            top += 1
-            num[top] = num[i]
+                st.pop()
+            st.append(c)
         
-        while start <= top and num[start] == "0":
-            start += 1
-            
-        ans = ""
-        for i in range(start, last):
-            ans += num[i]
-            
-        return ans if ans != "" else "0"
+        res = ''.join(st[:len(st)-k])
+        return str(int(res)) if res else "0"
+        
+        
