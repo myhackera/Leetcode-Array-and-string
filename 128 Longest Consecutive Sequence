@@ -1,0 +1,19 @@
+class Solution:
+    def findLongestConseqSubseq(self,arr, N):
+        
+        max_streak = 0
+        s = set(arr)
+        curr_streak = 1
+        
+        for i in range(N):
+            
+            if arr[i]-1 not in s:
+                temp = arr[i]
+                curr_streak = 1
+                while temp+1 in s:
+                    curr_streak += 1
+                    temp = temp+1
+            
+            max_streak = max(max_streak, curr_streak)
+            
+        return max_streak
